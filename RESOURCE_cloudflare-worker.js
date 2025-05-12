@@ -36,6 +36,8 @@ export default {
         max_tokens: 300,
       };
     } else {
+      console.log(JSON.stringify(data)); // <--- add this
+
       return new Response(JSON.stringify({ response: "Invalid input" }), {
         headers: corsHeaders,
       });
