@@ -4,6 +4,9 @@ const productsContainer = document.getElementById("productsContainer");
 const chatForm = document.getElementById("chatForm");
 const chatWindow = document.getElementById("chatWindow");
 
+const CLOUDLFARE_WORKER_URL =
+  "https://lorealagain.kennedyannlorenzen.workers.dev/"; // Replace with your Cloudflare Worker URL
+
 /* Show initial placeholder until user selects a category */
 productsContainer.innerHTML = `
   <div class="placeholder-message">
@@ -115,11 +118,14 @@ chatForm.addEventListener("submit", async (e) => {
     content: div.textContent,
   }));
 
-  const res = await fetch("https://your-worker-url.workers.dev", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ messages }),
-  });
+  const res = await fetch(
+    "https://lorealagain.kennedyannlorenzen.workers.dev/",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages }),
+    }
+  );
 
   const data = await res.json();
   addMessageToChat("bot", data.response || "Sorry, I didn't catch that.");
@@ -142,11 +148,14 @@ generateBtn.addEventListener("click", async () => {
     )
     .join("\n")}`;
 
-  const res = await fetch("https://your-worker-url.workers.dev", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt }),
-  });
+  const res = await fetch(
+    "https://lorealagain.kennedyannlorenzen.workers.dev/",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+    }
+  );
 
   const data = await res.json();
   addMessageToChat(
