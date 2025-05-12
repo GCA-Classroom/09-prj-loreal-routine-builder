@@ -221,6 +221,29 @@ body {
   border-radius: 8px;
 }
 
+.product-card.selected {
+  border: 2px solid #e40046; /* L'Oréal red */
+  background-color: #fff0f5;
+}
+
+.selected-item {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f7f7f7;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #e40046;
+  font-size: 18px;
+  cursor: pointer;
+}
+
 .selected-products h2 {
   font-size: 20px;
   margin-bottom: 20px;
