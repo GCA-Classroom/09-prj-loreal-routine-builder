@@ -308,18 +308,13 @@ chatForm.addEventListener("submit", async (e) => {
 });
 
 /* Function to call OpenAI API using fetch and async/await */
+/* Function to call OpenAI API using your Cloudflare Worker */
 async function getOpenAIResponse(messages) {
-  // Use your OpenAI API key from secrets.js
-  if (typeof OPENAI_API_KEY === "undefined") {
-    return "OpenAI API key not found. Please add it to secrets.js.";
-  }
-
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://yellow-sunset-7be1.ahmadshumail47.workers.dev/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         model: "gpt-4o",
@@ -328,8 +323,9 @@ async function getOpenAIResponse(messages) {
         temperature: 0.7,
       }),
     });
+
     const data = await response.json();
-    // Check for a valid response
+
     if (
       data &&
       data.choices &&
@@ -339,12 +335,16 @@ async function getOpenAIResponse(messages) {
     ) {
       return data.choices[0].message.content.trim();
     } else {
+      console.log("Unexpected OpenAI response:", data);
       return null;
     }
   } catch (err) {
+    console.error("Error calling OpenAI proxy:", err);
     return null;
   }
 }
+
+
 
 /* On page load, fetch all products for later use */
 (async () => {
