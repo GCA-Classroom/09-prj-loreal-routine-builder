@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>L'Oréal | Smart Routine &amp; Product Advisor</title>
+    <title>L'Oréal | Smart Routine & Product Advisor</title>
+
+    <!-- Fonts / Icons -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap"
       rel="stylesheet"
@@ -12,6 +14,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
+
     <link rel="stylesheet" href="style.css" />
   </head>
 
@@ -20,7 +23,7 @@
       <!------- Header / Branding ------->
       <header class="site-header">
         <img src="img/loreal-logo.png" alt="L'Oréal Logo" class="logo" />
-        <h1 class="site-title">Smart Routine &amp; Product Advisor</h1>
+        <h1 class="site-title">Smart Routine & Product Advisor</h1>
       </header>
 
       <!-- Category Filter -->
@@ -73,11 +76,10 @@
         </form>
       </section>
 
-      <!------- Footer Links ------->
+      <!------- Footer ------->
       <footer class="site-footer">
         <p>&copy; 2025 L'Oréal. All rights reserved.</p>
         <nav>
-          <!-- These URLs are placeholders -->
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Use</a>
           <a href="#">Contact</a>
@@ -85,8 +87,12 @@
       </footer>
     </div>
 
-    <!-- secrets.js can be removed when using Cloudflare Workers for API requests -->
-    <script src="secrets.js"></script>
+    <!-- ✅ Worker URL (REQUIRED) -->
+    <script>
+      window.WORKER_URL = "https://loreal-bot.nmoon10411.workers.dev";
+    </script>
+
+    <!-- ✅ Your Main Logic -->
     <script src="script.js"></script>
   </body>
 </html>
