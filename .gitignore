@@ -1,2 +1,8 @@
-# Secrets file containing API keys
+# Ignore local secrets
+# Local JS secrets file (contains API keys) — do NOT commit
+js/secrets.js
 secrets.js
+
+# Node / editor folders (optional)
+node_modules/
+.vscode/

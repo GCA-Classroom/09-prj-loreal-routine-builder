@@ -29,6 +29,7 @@
           <option value="" disabled selected>Choose a Category</option>
           <option value="cleanser">Cleansers</option>
           <option value="moisturizer">Moisturizers & Treatments</option>
+          <option value="skincare">Skincare</option>
           <option value="haircare">Haircare</option>
           <option value="makeup">Makeup</option>
           <option value="hair color">Hair Color</option>
@@ -37,18 +38,40 @@
           <option value="suncare">Suncare</option>
           <option value="fragrance">Fragrance</option>
         </select>
+
+        <!-- Moved below the select and label text updated -->
+        <input
+          id="productSearch"
+          type="search"
+          placeholder="Search product"
+          aria-label="Search product"
+        />
       </div>
 
       <!-- Products Grid -->
       <div id="productsContainer" class="products-grid"></div>
 
+      <!-- Show more control: toggles full list -->
+      <div class="show-more-wrap">
+        <button id="toggleProducts" class="show-more-btn" aria-expanded="false">
+          Show More Products
+        </button>
+      </div>
+
       <!-- Selected Products -->
       <div class="selected-products">
         <h2>Selected Products</h2>
-        <div id="selectedProductsList"></div>
-        <button id="generateRoutine" class="generate-btn">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Routine
-        </button>
+        <div class="selected-controls">
+          <div id="selectedProductsList"></div>
+          <div class="selected-actions">
+            <button id="clearSelections" class="clear-btn">
+              Clear Selections
+            </button>
+            <button id="generateRoutine" class="generate-btn">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Routine
+            </button>
+          </div>
+        </div>
       </div>
 
       <!------- Chat Area ------->
@@ -86,7 +109,7 @@
     </div>
 
     <!-- secrets.js can be removed when using Cloudflare Workers for API requests -->
-    <script src="secrets.js"></script>
+    <script src="js/secrets.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
