@@ -5,10 +5,16 @@
   padding: 0;
 }
 
+:root {
+  --brand-red: #ff003b;
+  --brand-gold: #e3a535;
+  --text-dark: #222;
+}
+
 /* —— body + fonts —— */
 body {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  color: var(--text-dark);
   display: flex;
   justify-content: center;
 }
@@ -34,6 +40,7 @@ body {
   font-size: 22px;
   font-weight: 500;
   margin-bottom: 10px;
+  color: var(--brand-red);
 }
 
 /* category filter */
@@ -46,7 +53,7 @@ body {
   width: 100%;
   padding: 16px;
   font-size: 18px;
-  border: 2px solid #000;
+  border: 2px solid var(--brand-gold);
   border-radius: 8px;
   cursor: pointer;
   background-color: white;
@@ -55,13 +62,13 @@ body {
 
 .search-section select:focus {
   outline: none;
-  border-color: #666;
+  border-color: var(--brand-red);
 }
 
 /* chat section */
 .chatbox {
   margin: 40px 0;
-  border: 2px solid #000;
+  border: 2px solid var(--brand-red);
   border-radius: 8px;
   padding: 26px;
 }
@@ -69,6 +76,7 @@ body {
 .chatbox h2 {
   font-size: 20px;
   margin-bottom: 20px;
+  color: var(--brand-red);
 }
 
 .chat-window {
@@ -77,8 +85,37 @@ body {
   line-height: 1.5;
   height: 250px;
   overflow-y: auto;
-  background: #fafafa;
+  background: #fff7e8;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-message {
+  padding: 10px 12px;
+  border-radius: 10px;
+  max-width: 90%;
+  white-space: pre-wrap;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.chat-message.assistant {
+  background: #fff;
+  border: 1px solid var(--brand-gold);
+  align-self: flex-start;
+}
+
+.chat-message.user {
+  background: var(--brand-red);
+  color: #fff;
+  align-self: flex-end;
+}
+
+.chat-message.loading {
+  opacity: 0.8;
+  font-style: italic;
 }
 
 /* placeholder message */
@@ -102,18 +139,18 @@ body {
   padding: 12px;
   font-size: 18px;
   border: none;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid var(--brand-gold);
   background: transparent;
 }
 
 .chat-form input:focus {
   outline: none;
-  border-bottom-color: #000;
+  border-bottom-color: var(--brand-red);
 }
 
 .chat-form button {
   font-size: 18px;
-  background: #000;
+  background: var(--brand-red);
   color: #fff;
   border: none;
   padding: 12px;
@@ -127,11 +164,12 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: var(--brand-gold);
+  color: var(--text-dark);
 }
 
 .chat-form button:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--brand-red);
   outline-offset: 2px;
 }
 
@@ -162,12 +200,12 @@ body {
 
 .site-footer a {
   margin: 0 8px;
-  color: #000;
+  color: var(--brand-red);
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: var(--brand-gold);
 }
 
 /* products grid */
@@ -180,12 +218,38 @@ body {
 
 .product-card {
   flex: 0 1 calc(33.333% - 14px);
-  border: 1px solid #ccc;
+  border: 1px solid var(--brand-gold);
   padding: 15px;
   border-radius: 4px;
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 10px;
   min-height: 160px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+}
+
+.product-card:focus {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 2px;
+}
+
+.product-card.selected {
+  border: 2px solid var(--brand-red);
+  box-shadow: 0 0 0 3px rgba(255, 0, 59, 0.14);
+  background: #fff7f9;
+}
+
+.product-main {
+  display: flex;
+  gap: 15px;
 }
 
 .product-card img {
@@ -213,33 +277,129 @@ body {
   color: #666;
 }
 
+.product-category {
+  text-transform: capitalize;
+}
+
+.description-toggle {
+  width: 100%;
+  border: 1px solid var(--brand-gold);
+  background: #fff;
+  color: var(--text-dark);
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.description-toggle:hover {
+  border-color: var(--brand-red);
+}
+
+.description-toggle:focus {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 2px;
+}
+
+.product-description {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #444;
+}
+
+.hidden {
+  display: none;
+}
+
 /* selected products */
 .selected-products {
   margin: 40px 0;
   padding: 20px;
-  border: 2px solid #000;
+  border: 2px solid var(--brand-red);
   border-radius: 8px;
 }
 
 .selected-products h2 {
   font-size: 20px;
   margin-bottom: 20px;
+  color: var(--brand-red);
 }
 
 #selectedProductsList {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
+}
+
+.selected-placeholder {
+  color: #666;
+}
+
+.selected-item {
+  border: 1px solid var(--brand-gold);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.selected-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.selected-item-text span {
+  font-size: 13px;
+  color: #666;
+}
+
+.remove-selected-btn {
+  border: none;
+  background: var(--brand-red);
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.remove-selected-btn:hover {
+  background: var(--brand-gold);
+  color: var(--text-dark);
+}
+
+.clear-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px;
+  border: 1px solid var(--brand-gold);
+  background: #fff;
+  color: var(--text-dark);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.clear-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clear-btn:not(:disabled):hover {
+  border-color: var(--brand-red);
+  color: var(--brand-red);
 }
 
 .generate-btn {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 12px;
   padding: 16px;
   font-size: 18px;
   font-weight: 500;
   color: #fff;
-  background: #000;
+  background: var(--brand-red);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -247,9 +407,30 @@ body {
 }
 
 .generate-btn:hover {
-  background: #666;
+  background: var(--brand-gold);
+  color: var(--text-dark);
 }
 
 .generate-btn i {
   margin-right: 8px;
+}
+
+@media (max-width: 900px) {
+  .product-card {
+    flex: 0 1 calc(50% - 10px);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-card {
+    flex: 0 1 100%;
+  }
+
+  .product-main {
+    align-items: center;
+  }
+
+  .chat-window {
+    height: 280px;
+  }
 }
