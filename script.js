@@ -1,57 +1,48 @@
-/* Get references to DOM elements */
-const categoryFilter = document.getElementById("categoryFilter");
-const productsContainer = document.getElementById("productsContainer");
-const chatForm = document.getElementById("chatForm");
-const chatWindow = document.getElementById("chatWindow");
+// DOM elements
+const form = document.getElementById("chat-form");
+const input = document.getElementById("user-input");
+const chatArea = document.getElementById("chat-area");
 
-/* Show initial placeholder until user selects a category */
-productsContainer.innerHTML = `
-  <div class="placeholder-message">
-    Select a category to view products
-  </div>
-`;
+// Replace with your Cloudflare Worker URL
+const WORKER_URL = "https://your-worker-name.your-subdomain.workers.dev/";
 
-/* Load product data from JSON file */
-async function loadProducts() {
-  const response = await fetch("products.json");
-  const data = await response.json();
-  return data.products;
+// Add a message to the chat window
+function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("message", sender);
+    msg.textContent = text;
+    chatArea.appendChild(msg);
+    chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-/* Create HTML for displaying product cards */
-function displayProducts(products) {
-  productsContainer.innerHTML = products
-    .map(
-      (product) => `
-    <div class="product-card">
-      <img src="${product.image}" alt="${product.name}">
-      <div class="product-info">
-        <h3>${product.name}</h3>
-        <p>${product.brand}</p>
-      </div>
-    </div>
-  `
-    )
-    .join("");
-}
+// Handle form submission
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
 
-/* Filter and display products when category changes */
-categoryFilter.addEventListener("change", async (e) => {
-  const products = await loadProducts();
-  const selectedCategory = e.target.value;
+    const userMessage = input.value.trim();
+    if (!userMessage) return;
 
-  /* filter() creates a new array containing only products 
-     where the category matches what the user selected */
-  const filteredProducts = products.filter(
-    (product) => product.category === selectedCategory
-  );
+    // Show user message
+    addMessage(userMessage, "user");
+    input.value = "";
 
-  displayProducts(filteredProducts);
-});
+    try {
+        // Send message to Cloudflare Worker
+        const response = await fetch(WORKER_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userMessage })
+        });
 
-/* Chat form submission handler - placeholder for OpenAI integration */
-chatForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+        const data = await response.json();
 
-  chatWindow.innerHTML = "Connect to the OpenAI API for a response!";
+        if (data.error) {
+            addMessage("Error: " + data.error, "assistant");
+        } else {
+            addMessage(data.reply, "assistant");
+        }
+
+    } catch (error) {
+        addMessage("Network error. Please try again.", "assistant");
+    }
 });
