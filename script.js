@@ -4,7 +4,8 @@ const input = document.getElementById("user-input");
 const chatArea = document.getElementById("chat-area");
 
 // Replace with your Cloudflare Worker URL
-const WORKER_URL = "https://your-worker-name.your-subdomain.workers.dev/";
+const WORKER_URL = "
+09-prj-loreal-routine-builder.alexisbentley564.workers.dev";
 
 // Add a message to the chat window
 function addMessage(text, sender) {
