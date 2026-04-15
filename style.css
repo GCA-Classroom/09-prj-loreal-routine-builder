@@ -5,12 +5,19 @@
   padding: 0;
 }
 
+:root {
+  --accent-pink: #ff003b;
+  --accent-gold: #e3a535;
+  --text-dark: #241f20;
+}
+
 /* —— body + fonts —— */
 body {
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  color: var(--text-dark);
   display: flex;
   justify-content: center;
+  background: linear-gradient(180deg, #fff6f8 0%, #ffffff 40%, #fffaf1 100%);
 }
 
 .page-wrapper {
@@ -34,34 +41,52 @@ body {
   font-size: 22px;
   font-weight: 500;
   margin-bottom: 10px;
+  color: var(--accent-pink);
 }
 
 /* category filter */
 .search-section {
   margin: 30px 0;
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .search-section select {
-  width: 100%;
+  flex: 1;
+  min-width: 180px;
   padding: 16px;
-  font-size: 18px;
-  border: 2px solid #000;
+  font-size: 16px;
+  border: 2px solid var(--accent-gold);
   border-radius: 8px;
   cursor: pointer;
   background-color: white;
   font-weight: 500;
 }
 
+#productSearch {
+  flex: 2;
+  min-width: 240px;
+  padding: 16px;
+  font-size: 16px;
+  border: 2px solid var(--accent-gold);
+  border-radius: 8px;
+}
+
+#productSearch:focus {
+  outline: none;
+  border-color: var(--accent-pink);
+}
+
 .search-section select:focus {
   outline: none;
-  border-color: #666;
+  border-color: var(--accent-pink);
 }
 
 /* chat section */
 .chatbox {
   margin: 40px 0;
-  border: 2px solid #000;
+  border: 2px solid var(--accent-gold);
   border-radius: 8px;
   padding: 26px;
 }
@@ -75,10 +100,37 @@ body {
   padding: 20px;
   font-size: 18px;
   line-height: 1.5;
-  height: 250px;
+  min-height: 250px;
+  max-height: 400px;
   overflow-y: auto;
   background: #fafafa;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-message {
+  max-width: 85%;
+  padding: 12px 14px;
+  border-radius: 10px;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  background: var(--accent-pink);
+  color: #fff;
+}
+
+.chat-message.assistant {
+  align-self: flex-start;
+  background: #fff4dd;
+  color: #111;
+  border: 1px solid #f4dfb6;
+}
+
+.chat-message p {
+  white-space: pre-line;
 }
 
 /* placeholder message */
@@ -108,12 +160,12 @@ body {
 
 .chat-form input:focus {
   outline: none;
-  border-bottom-color: #000;
+  border-bottom-color: var(--accent-pink);
 }
 
 .chat-form button {
   font-size: 18px;
-  background: #000;
+  background: var(--accent-pink);
   color: #fff;
   border: none;
   padding: 12px;
@@ -127,11 +179,11 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: #bf002d;
 }
 
 .chat-form button:focus {
-  outline: 2px solid #000;
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
 }
 
@@ -162,12 +214,12 @@ body {
 
 .site-footer a {
   margin: 0 8px;
-  color: #000;
+  color: var(--accent-pink);
   text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: #9d0026;
 }
 
 /* products grid */
@@ -180,12 +232,32 @@ body {
 
 .product-card {
   flex: 0 1 calc(33.333% - 14px);
-  border: 1px solid #ccc;
+  border: 1px solid #f1c76d;
   padding: 15px;
   border-radius: 4px;
   display: flex;
   gap: 15px;
   min-height: 160px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-pink);
+}
+
+.product-card:focus {
+  outline: 2px solid var(--accent-pink);
+  outline-offset: 2px;
+}
+
+.product-card.selected {
+  border: 2px solid var(--accent-pink);
+  box-shadow: 0 0 0 3px rgba(227, 165, 53, 0.32);
 }
 
 .product-card img {
@@ -213,11 +285,42 @@ body {
   color: #666;
 }
 
+.product-category {
+  text-transform: capitalize;
+  margin-top: 2px;
+}
+
+.description-toggle {
+  margin-top: 12px;
+  align-self: flex-start;
+  background: #fff;
+  color: var(--accent-pink);
+  border: 1px solid var(--accent-pink);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.description-toggle:hover {
+  background: var(--accent-pink);
+  color: #fff;
+}
+
+.product-description {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #bbb;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #333;
+}
+
 /* selected products */
 .selected-products {
   margin: 40px 0;
   padding: 20px;
-  border: 2px solid #000;
+  border: 2px solid var(--accent-gold);
   border-radius: 8px;
 }
 
@@ -228,18 +331,78 @@ body {
 
 #selectedProductsList {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
+}
+
+.selected-item {
+  border: 1px solid #f1c76d;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.selected-name {
+  font-weight: 600;
+  color: var(--accent-pink);
+}
+
+.selected-brand {
+  color: #666;
+  font-size: 14px;
+}
+
+.selected-placeholder {
+  color: #666;
+}
+
+.remove-selected {
+  border: 1px solid var(--accent-pink);
+  background: #fff;
+  color: var(--accent-pink);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.remove-selected:hover {
+  background: var(--accent-pink);
+  color: #fff;
+}
+
+.clear-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid var(--accent-gold);
+  background: #fff;
+  color: #9a6a12;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.clear-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clear-btn:hover:enabled {
+  background: var(--accent-gold);
+  color: #fffdf8;
 }
 
 .generate-btn {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 12px;
   padding: 16px;
   font-size: 18px;
   font-weight: 500;
   color: #fff;
-  background: #000;
+  background: var(--accent-pink);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -247,9 +410,34 @@ body {
 }
 
 .generate-btn:hover {
-  background: #666;
+  background: #bf002d;
 }
 
 .generate-btn i {
   margin-right: 8px;
+}
+
+@media (max-width: 860px) {
+  .product-card {
+    flex: 0 1 calc(50% - 10px);
+  }
+}
+
+@media (max-width: 600px) {
+  .page-wrapper {
+    width: 94%;
+  }
+
+  .product-card {
+    flex: 0 1 100%;
+  }
+
+  .chatbox,
+  .selected-products {
+    padding: 18px;
+  }
+
+  .chat-form input {
+    font-size: 16px;
+  }
 }
