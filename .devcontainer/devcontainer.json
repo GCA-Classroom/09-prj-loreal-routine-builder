@@ -8,6 +8,8 @@
       ],
       "settings": {
         "livePreview.autoRefreshPreview": "On All Changes in Editor",
+        "livePreview.portNumber": 3000,
+        "livePreview.hostIP": "0.0.0.0",
         "editor.minimap.enabled": false,
         "workbench.colorTheme": "Visual Studio Dark",
         "editor.tabSize": 2,
@@ -20,5 +22,13 @@
       }
     }
   },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Routine Builder",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "postStartCommand": "nohup python3 -m http.server 3000 --bind 0.0.0.0 --directory ${containerWorkspaceFolder} > /tmp/routine-builder-server.log 2>&1 & echo started",
   "postAttachCommand": "rm -rf ~/.cache/* ~/.vscode-server/extensionsCache/* ~/.vscode-server/data/User/workspaceStorage/* ~/.config/Code/Cache/* ~/.config/Code/CachedData/*"
 }
