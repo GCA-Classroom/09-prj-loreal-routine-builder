@@ -7,6 +7,10 @@ workers_dev = true
 # Add exact website origins here only if the frontend is hosted separately.
 ALLOWED_ORIGINS = ""
 
+[previews.vars]
+# Same-origin preview requests are allowed by the Worker; add only exact external preview origins if needed.
+ALLOWED_ORIGINS = ""
+
 [assets]
 directory = "."
 binding = "ASSETS"
