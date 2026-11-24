@@ -1,0 +1,14 @@
+.git/
+.github/
+.devcontainer/
+.wrangler/
+node_modules/
+worker/
+README.md
+AGENTS.md
+wrangler.toml
+.gitignore
+.assetsignore
+.dev.vars*
+.env*
+secrets.js

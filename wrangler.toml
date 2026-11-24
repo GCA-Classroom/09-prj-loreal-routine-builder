@@ -1,0 +1,13 @@
+name = "loreal-routine-builder"
+main = "worker/index.js"
+compatibility_date = "2026-11-23"
+workers_dev = true
+
+[vars]
+# Add exact website origins here only if the frontend is hosted separately.
+ALLOWED_ORIGINS = ""
+
+[assets]
+directory = "."
+binding = "ASSETS"
+run_worker_first = ["/api", "/api/*"]
