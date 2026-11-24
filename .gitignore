@@ -1,2 +1,7 @@
 # Secrets file containing API keys
 secrets.js
+
+# Local Cloudflare Worker secrets (use Wrangler secrets for deployed Workers)
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
